@@ -15,6 +15,18 @@
 
 set $mod Mod1
 
+
+
+# Media player controls
+# Using [Playerctl](https://github.com/acrisci/playerctl/releases) and pactl
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
@@ -108,22 +120,24 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+# move focused container to workspace and move to new workspace
+bindsym $mod+Shift+1 move container to workspace 1, workspace 1
+bindsym $mod+Shift+2 move container to workspace 2, workspace 2
+bindsym $mod+Shift+3 move container to workspace 3, workspace 3
+bindsym $mod+Shift+4 move container to workspace 4, workspace 4
+bindsym $mod+Shift+5 move container to workspace 5, workspace 5
+bindsym $mod+Shift+6 move container to workspace 6, workspace 6
+bindsym $mod+Shift+7 move container to workspace 7, workspace 7
+bindsym $mod+Shift+8 move container to workspace 8, workspace 8
+bindsym $mod+Shift+9 move container to workspace 9, workspace 9
+bindsym $mod+Shift+0 move container to workspace 10, workspace 10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -160,12 +174,13 @@ bar {
         tray_output primary
 }
 
-
 # Startup programs
+# Disable internal monitor leaving only external
 # Network/wifi icon
 # Dropbox daemon
 # Usb automount daemon
 # Set neaty wallpaper
+exec xrandr --output "LVDS1" --off --output "VGA1" --mode 1600x900
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 exec --no-startup-id udiskie &
@@ -190,14 +205,21 @@ exec --no-startup-id feh --bg-scale ~/Imagens/XfbYO8V.png
 # bindsym r exec terminator --profile ranger, mode "default"
 # bindsym s exec skype, mode "default"
 # bindsym n exec nixnote, mode "default"
-set $MENU "[F]irefox - [P]cman(file-manager) - spotif[Y] - [S]ublime - [W]ebstorm"
+
+set $MENU "[F]irefox - [G]ftp  - [P]cman(file-manager) - spotif[Y] - [S]ublime - [W]ebstorm"
 bindsym Menu mode $MENU
 mode $MENU {
-bindsym f exec firefox, mode "default"
-bindsym s exec subl, mode "default"
-bindsym w exec wstorm, mode "default"
-bindsym y exec spotify, mode "default"
-bindsym p exec pcmanfm, mode "default"
-bindsym Return mode "default"
-bindsym Escape mode "default"
+	bindsym f exec firefox, mode "default"
+	bindsym g exec gftp, mode "default"
+	bindsym s exec subl, mode "default"
+	bindsym w exec wstorm, mode "default"
+	bindsym y exec spotify, mode "default"
+	bindsym p exec pcmanfm, mode "default"
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
+
+# Create dialog with power options
+bindsym Pause exec ~/.config/i3/i3-exit
+for_window [class="I3-exit" instance="i3-exit"] floating enable
