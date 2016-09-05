@@ -176,37 +176,20 @@ bar {
 
 # Startup programs
 # Disable internal monitor leaving only external
+# Sound icon
 # Network/wifi icon
 # Dropbox daemon
 # Usb automount daemon
 # Set neaty wallpaper
 exec xrandr --output "LVDS1" --off --output "VGA1" --mode 1600x900
+exec --no-startup-id volumeicon # requires volumeicon-alsa
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 exec --no-startup-id udiskie &
 exec --no-startup-id feh --bg-scale ~/Imagens/XfbYO8V.png
 
-# Menu dash testing - below are some examples
-# bindsym d exec dolphin, mode, "default"
-# bindsym a exec audacious, mode "default"
-# bindsym l exec libreoffice, mode "default"
-# bindsym m exec gimp, mode "default"
-# bindsym c exec chromium, mode "default"
-# bindsym i exec irfanview,mode "default"
-# bindsym p exec palemoon, mode "default"
-# bindsym f exec foxitreader, mode "default"
-# bindsym g exec gvim, mode "default"
-# bindsym w exec wps, mode "default"
-# bindsym e exec et, mode "default"
-# bindsym q exec qbittorrent, mode "default"
-# bindsym v exec vlc, mode "default"
-# bindsym o exec doublecmd, mode "default"
-# bindsym x exec xnviewmp, mode "default"
-# bindsym r exec terminator --profile ranger, mode "default"
-# bindsym s exec skype, mode "default"
-# bindsym n exec nixnote, mode "default"
-
-set $MENU "[F]irefox - [G]ftp  - [P]cman(file-manager) - spotif[Y] - [S]ublime - [W]ebstorm"
+# Menu dash
+set $MENU "[F]irefox - [G]ftp  - [N]autilus - spotif[Y] - [S]ublime - [W]ebstorm"
 bindsym Menu mode $MENU
 mode $MENU {
 	bindsym f exec firefox, mode "default"
@@ -214,7 +197,7 @@ mode $MENU {
 	bindsym s exec subl, mode "default"
 	bindsym w exec wstorm, mode "default"
 	bindsym y exec spotify, mode "default"
-	bindsym p exec pcmanfm, mode "default"
+	bindsym n exec nautilus --no-desktop, mode "default"
 	
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
